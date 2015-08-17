@@ -17,7 +17,7 @@ Completed:
 
 Notes:
 
-App only works in portrait mode.
+App only works in portrait mode. It's storyboard is laid out only for iPhone 5.  Other devices may have some alignment/visibility problems.
 
 Walkthrough of all user stories:
 

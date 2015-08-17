@@ -81,6 +81,11 @@ class ViewController: UIViewController {
             defaults.synchronize()
         }
         
+        if defaults.objectForKey("defaultTip") == nil {
+            defaults.setDouble(0.18, forKey: "defaultTip")
+            defaults.synchronize()
+        }
+        
         tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
         
         billField.becomeFirstResponder()
