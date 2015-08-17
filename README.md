@@ -28,5 +28,6 @@ Repository License:
 This project is licensed under the terms of the MIT license.
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/)
+
 Doge pictures created with [such doge - much generator - wow](http://dogr.io/)
 
