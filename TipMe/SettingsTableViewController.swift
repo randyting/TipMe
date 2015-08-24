@@ -15,22 +15,30 @@ class SettingsTableViewController: UITableViewController {
   let tipPercentages = [0.18, 0.2, 0.22]
   let defaults = NSUserDefaults.standardUserDefaults()
   
+  enum SettingsTableViewRow : Int {
+    case DefaultTip, DarkTheme, ShowDogeInModal, AnimateDoge, Count
+
+    static let titles = [
+      DefaultTip: "Default Tip",
+      DarkTheme: "Dark Theme",
+      ShowDogeInModal: "Show Doge In Modal",
+      AnimateDoge: "Animate Doge"
+    ]
+    
+    func title() -> String {
+      if let rowTitle = SettingsTableViewRow.titles[self] {
+        return rowTitle
+      } else {
+        assert(true, "Attempted to access SettingsTableViewRow out of bounds.")
+        return "Out of bounds"
+      }
+    }
+  }
+  
   // MARK: - Behavior
   
   func tipChanged(sender: UISegmentedControl!){
-    switch sender.selectedSegmentIndex {
-    case 0:
-      defaults.setDouble(0.18, forKey: "defaultTip")
-      println("Selected 18% as default tip amount")
-    case 1:
-      defaults.setDouble(0.2, forKey: "defaultTip")
-      println("Selected 20% as default tip amount")
-    case 2:
-      defaults.setDouble(0.22, forKey: "defaultTip")
-      println("Selected 22% as default tip amount")
-    default:
-      assert(true, "Attempted to access default tip amount out of bounds!")
-    }
+    defaults.setDouble(tipPercentages[sender.selectedSegmentIndex], forKey: "defaultTip")
   }
   
   func themeChanged(sender: UISwitch!){
@@ -61,36 +69,31 @@ class SettingsTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 4
+    return SettingsTableViewRow.Count.rawValue
   }
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> SettingsTableViewCell {
     let cell: SettingsTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SettingsTableViewCell
     
+    cell.settingNameLabel.text = SettingsTableViewRow(rawValue: indexPath.row)?.title()
     switch indexPath.row {
-    case 0:
-      cell.settingNameLabel.text = "Default Tip"
-      cell.darkThemeSwitch.hidden = true
-      cell.defaultTipSelector.addTarget(self, action: "tipChanged:", forControlEvents: UIControlEvents.ValueChanged)
-      cell.defaultTipSelector.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
-    case 1:
-      cell.settingNameLabel.text = "Dark Theme"
-      cell.defaultTipSelector.hidden = true
-      cell.darkThemeSwitch.on = defaults.boolForKey("darkTheme")
-      cell.darkThemeSwitch.addTarget(self, action: "themeChanged:", forControlEvents: UIControlEvents.ValueChanged)
-    case 2:
-      cell.darkThemeSwitch.hidden = true
-      cell.defaultTipSelector.hidden = true
-      cell.settingNameLabel.text = "Show Doge in Modal"
-    case 3:
-      cell.darkThemeSwitch.hidden = true
-      cell.defaultTipSelector.hidden = true
-      cell.settingNameLabel.text = "Animate Doge"
-      
-    default:
-      assert(true, "Tried to access row that doesn't exist")
-      
+      case SettingsTableViewRow.DefaultTip.rawValue:
+        cell.darkThemeSwitch.hidden = true
+        cell.defaultTipSelector.addTarget(self, action: "tipChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        cell.defaultTipSelector.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
+      case SettingsTableViewRow.DarkTheme.rawValue:
+        cell.defaultTipSelector.hidden = true
+        cell.darkThemeSwitch.on = defaults.boolForKey("darkTheme")
+        cell.darkThemeSwitch.addTarget(self, action: "themeChanged:", forControlEvents: UIControlEvents.ValueChanged)
+      case SettingsTableViewRow.ShowDogeInModal.rawValue:
+        cell.darkThemeSwitch.hidden = true
+        cell.defaultTipSelector.hidden = true
+      case SettingsTableViewRow.AnimateDoge.rawValue:
+        cell.darkThemeSwitch.hidden = true
+        cell.defaultTipSelector.hidden = true
+      default:
+        assert(true, "Tried to access row that doesn't exist")
     }
     
     return cell
@@ -99,11 +102,11 @@ class SettingsTableViewController: UITableViewController {
   // MARK: - Table View Behavior
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if indexPath.row == 2 {
+    if indexPath.row == SettingsTableViewRow.ShowDogeInModal.rawValue {
       performSegueWithIdentifier("showDogeInModal", sender: self)
       
     }
-    if indexPath.row == 3 {
+    if indexPath.row == SettingsTableViewRow.AnimateDoge.rawValue {
       performSegueWithIdentifier("animateDoge", sender: self)
     }
   }

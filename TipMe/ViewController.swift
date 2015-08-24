@@ -62,7 +62,7 @@ class ViewController: UIViewController {
       billField.text = (defaults.objectForKey("LastBillAmount") as! String)
     }
     
-    dollarSignLabel.text = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as? String
+    dollarSignLabel.text = (NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String)
     onEditingChanged(self)
   }
   
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     
     tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
     billField.becomeFirstResponder()
-    dollarSignLabel.text = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as? String
+    dollarSignLabel.text = (NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String)
     
     // Listen for app background/foreground transitions
     NSNotificationCenter.defaultCenter().addObserver(
