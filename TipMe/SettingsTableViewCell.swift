@@ -9,20 +9,20 @@
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var settingNameLabel: UILabel!
-    @IBOutlet weak var defaultTipSelector: UISegmentedControl!
-    @IBOutlet weak var darkThemeSwitch: UISwitch!
+  
+  @IBOutlet weak var settingNameLabel: UILabel!
+  @IBOutlet weak var defaultTipSelector: UISegmentedControl!
+  @IBOutlet weak var darkThemeSwitch: UISwitch!
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+  }
+  
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    // Configure the view for the selected state
+  }
+  
 }
