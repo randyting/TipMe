@@ -10,9 +10,13 @@ import UIKit
 
 class AnimateDogeViewController: UIViewController {
   
+  // MARK: - Storyboard Objects
+  
   @IBOutlet weak var animationImage1: UIImageView!
   @IBOutlet weak var animationImage2: UIImageView!
   @IBOutlet weak var animationImage3: UIImageView!
+  
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,8 +24,6 @@ class AnimateDogeViewController: UIViewController {
     animationImage1.alpha = 1
     animationImage2.alpha = 0
     animationImage3.alpha = 0
-    
-    
     
     UIView.animateWithDuration(3, animations: {
       self.animationImage1.alpha = 0

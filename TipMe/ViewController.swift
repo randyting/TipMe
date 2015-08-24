@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+ 
+  // MARK: - Storyboard Object
   
   @IBOutlet weak var dollarSignLabel: UILabel!
   @IBOutlet weak var billAmountLabel: UILabel!
@@ -22,11 +24,17 @@ class ViewController: UIViewController {
   @IBOutlet weak var totalLabel: UILabel!
   @IBOutlet weak var tipControl: UISegmentedControl!
   
-  let tipPercentages = [0.18, 0.2, 0.22]
   
-  var defaults = NSUserDefaults.standardUserDefaults()
+  // MARK: - Private Variables
   
   var currencySymbol: String = ""
+  
+  // MARK: - Constants
+  
+  let tipPercentages = [0.18, 0.2, 0.22]
+  let defaults = NSUserDefaults.standardUserDefaults()
+  
+  // MARK: - Helper
   
   func UIColorFromRGB(rgbValue: UInt) -> UIColor {
     return UIColor(
@@ -37,6 +45,8 @@ class ViewController: UIViewController {
     )
   }
   
+  // MARK: - Behavior
+  
   @IBAction func onEditingChanged(sender: AnyObject) {
     
     var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
@@ -44,15 +54,13 @@ class ViewController: UIViewController {
     var tip = billAmount * tipPercentage
     var total = billAmount + tip
     
-    
-    
     tipLabel.text = NSNumberFormatter.localizedStringFromNumber(tip as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
     totalLabel.text = NSNumberFormatter.localizedStringFromNumber(total as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
-    
-    
   }
   
-  func onActiveNotification(){
+  // MARK: - App Lifecycle
+  
+  func onDidBecomeActive(){
     if defaults.boolForKey("ShouldClearBillAmount"){
       billField.text = ""
     } else {
@@ -64,16 +72,17 @@ class ViewController: UIViewController {
     onEditingChanged(self)
   }
   
-  func storeBillAmount(){
+  func onDidEnterBackground(){
     defaults.setObject(billField.text, forKey: "LastBillAmount")
   }
   
+  // MARK: - View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.title = "TipMe"
-    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+    title = "TipMe"
+    navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
     
     if defaults.objectForKey("currentTip") == nil {
       defaults.setDouble(0.18, forKey: "currentTip")
@@ -87,23 +96,21 @@ class ViewController: UIViewController {
     }
     
     tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
-    
     billField.becomeFirstResponder()
+    currencySymbol = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String
     
+    // Listen for app background/foreground transitions
     NSNotificationCenter.defaultCenter().addObserver(
       self,
-      selector: "onActiveNotification",
+      selector: "onDidBecomeActive",
       name: UIApplicationDidBecomeActiveNotification,
       object: nil)
     
     NSNotificationCenter.defaultCenter().addObserver(
       self,
-      selector: "storeBillAmount",
+      selector: "onDidEnterBackground",
       name: UIApplicationDidEnterBackgroundNotification,
       object: nil)
-    
-    currencySymbol = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String
-    
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -111,46 +118,41 @@ class ViewController: UIViewController {
     tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
     
     switch defaults.boolForKey("darkTheme"){
-    case true:
-      view.backgroundColor = UIColor.blackColor()
-      dollarSignLabel.textColor = UIColor.orangeColor()
-      billAmountLabel.textColor = UIColor.orangeColor()
-      tipNameLabel.textColor = UIColor.orangeColor()
-      totalNameLabel.textColor = UIColor.orangeColor()
-      borderView.backgroundColor = UIColor.orangeColor()
-      tipLabel.textColor = UIColor.orangeColor()
-      billField.textColor = UIColor.orangeColor()
-      totalLabel.textColor = UIColor.orangeColor()
-      tipControl.tintColor = UIColor.orangeColor()
-      billField.backgroundColor = UIColor.blackColor()
-      billField.tintColor = UIColor.orangeColor()
-      
-    case false:
-      view.backgroundColor = UIColor.whiteColor()
-      dollarSignLabel.textColor = UIColor.blackColor()
-      billAmountLabel.textColor = UIColor.blackColor()
-      tipNameLabel.textColor = UIColor.blackColor()
-      totalNameLabel.textColor = UIColor.blackColor()
-      borderView.backgroundColor = UIColor.blackColor()
-      tipLabel.textColor = UIColor.blackColor()
-      billField.textColor = UIColor.blackColor()
-      totalLabel.textColor = UIColor.blackColor()
-      tipControl.tintColor = UIColorFromRGB(0x007AFF)
-      billField.backgroundColor = UIColor.whiteColor()
-      billField.tintColor = UIColor.blackColor()
-    default:
-      assert(true, "This should never happen")
+      case true:
+        view.backgroundColor = UIColor.blackColor()
+        dollarSignLabel.textColor = UIColor.orangeColor()
+        billAmountLabel.textColor = UIColor.orangeColor()
+        tipNameLabel.textColor = UIColor.orangeColor()
+        totalNameLabel.textColor = UIColor.orangeColor()
+        borderView.backgroundColor = UIColor.orangeColor()
+        tipLabel.textColor = UIColor.orangeColor()
+        billField.textColor = UIColor.orangeColor()
+        totalLabel.textColor = UIColor.orangeColor()
+        tipControl.tintColor = UIColor.orangeColor()
+        billField.backgroundColor = UIColor.blackColor()
+        billField.tintColor = UIColor.orangeColor()
+        
+      case false:
+        view.backgroundColor = UIColor.whiteColor()
+        dollarSignLabel.textColor = UIColor.blackColor()
+        billAmountLabel.textColor = UIColor.blackColor()
+        tipNameLabel.textColor = UIColor.blackColor()
+        totalNameLabel.textColor = UIColor.blackColor()
+        borderView.backgroundColor = UIColor.blackColor()
+        tipLabel.textColor = UIColor.blackColor()
+        billField.textColor = UIColor.blackColor()
+        totalLabel.textColor = UIColor.blackColor()
+        tipControl.tintColor = UIColorFromRGB(0x007AFF)
+        billField.backgroundColor = UIColor.whiteColor()
+        billField.tintColor = UIColor.blackColor()
+      default:
+        assert(true, "This should never happen")
     }
-    
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
-  
-  
-  
 }
 

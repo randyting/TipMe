@@ -10,9 +10,13 @@ import UIKit
 
 class DogeViewController: UIViewController {
   
+  // MARK: - Control
+  
   @IBAction func dismissDogeModal(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()

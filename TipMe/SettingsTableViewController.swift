@@ -10,9 +10,12 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
   
-  let tipPercentages = [0.18, 0.2, 0.22]
+  // MARK: - Constants
   
-  var defaults = NSUserDefaults.standardUserDefaults()
+  let tipPercentages = [0.18, 0.2, 0.22]
+  let defaults = NSUserDefaults.standardUserDefaults()
+  
+  // MARK: - Behavior
   
   func tipChanged(sender: UISegmentedControl!){
     switch sender.selectedSegmentIndex {
@@ -38,11 +41,12 @@ class SettingsTableViewController: UITableViewController {
     }
   }
   
+  // MARK: - Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     self.title = "Settings"
-    
   }
   
   override func didReceiveMemoryWarning() {
@@ -50,7 +54,7 @@ class SettingsTableViewController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  // MARK: - Table view data source
+  // MARK: - Table View Data Source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
@@ -91,6 +95,8 @@ class SettingsTableViewController: UITableViewController {
     
     return cell
   }
+  
+  // MARK: - Table View Behavior
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.row == 2 {
