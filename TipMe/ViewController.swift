@@ -24,11 +24,6 @@ class ViewController: UIViewController {
   @IBOutlet weak var totalLabel: UILabel!
   @IBOutlet weak var tipControl: UISegmentedControl!
   
-  
-  // MARK: - Private Variables
-  
-  var currencySymbol: String = ""
-  
   // MARK: - Constants
   
   let tipPercentages = [0.18, 0.2, 0.22]
@@ -67,8 +62,7 @@ class ViewController: UIViewController {
       billField.text = (defaults.objectForKey("LastBillAmount") as! String)
     }
     
-    currencySymbol = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String
-    dollarSignLabel.text = currencySymbol
+    dollarSignLabel.text = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as? String
     onEditingChanged(self)
   }
   
@@ -97,7 +91,7 @@ class ViewController: UIViewController {
     
     tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
     billField.becomeFirstResponder()
-    currencySymbol = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String
+    dollarSignLabel.text = NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as? String
     
     // Listen for app background/foreground transitions
     NSNotificationCenter.defaultCenter().addObserver(
