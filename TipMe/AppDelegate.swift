@@ -36,8 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func applicationDidBecomeActive(application: UIApplication) {
-    if defaults.objectForKey("LastTimeViewDisappeared") != nil {
-      var lastCalendarDate: NSDate = (defaults.objectForKey("LastTimeViewDisappeared") as! NSDate)
+    if let lastCalendarDate = defaults.objectForKey("LastTimeViewDisappeared") as? NSDate {
       if (NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitMinute, fromDate: lastCalendarDate, toDate: NSDate(), options: nil).minute) > 10 {
         defaults.setBool(true, forKey: "ShouldClearBillAmount")
       } else {
@@ -53,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
-  
-  
+    
 }
 
