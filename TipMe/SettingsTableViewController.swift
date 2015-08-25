@@ -33,6 +33,39 @@ class SettingsTableViewController: UITableViewController {
         return "Out of bounds"
       }
     }
+    
+    static let shouldHideDarkThemeSwitchSettings = [
+      DefaultTip: true,
+      DarkTheme: false,
+      ShowDogeInModal: true,
+      AnimateDoge: true
+    ]
+    
+    func shouldHideDarkThemeSwitch() -> Bool {
+      if let rowDarkThemeSwitchHidden = SettingsTableViewRow.shouldHideDarkThemeSwitchSettings[self] {
+        return rowDarkThemeSwitchHidden
+      } else {
+        assert(true, "Attempted to access SettingsTableViewRow out of bounds.")
+        return true
+      }
+    }
+    
+    static let shouldHideTipSelectorSettings = [
+      DefaultTip: false,
+      DarkTheme: true,
+      ShowDogeInModal: true,
+      AnimateDoge: true
+    ]
+    
+    func shouldHideTipSelector() -> Bool {
+      if let rowTipSelectorHidden = SettingsTableViewRow.shouldHideTipSelectorSettings[self] {
+        return rowTipSelectorHidden
+      } else {
+        assert(true, "Attempted to access SettingsTableViewRow out of bounds.")
+        return true
+      }
+    }
+    
   }
   
   // MARK: - Behavior
@@ -72,30 +105,21 @@ class SettingsTableViewController: UITableViewController {
     return SettingsTableViewRow.Count.rawValue
   }
   
-  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> SettingsTableViewCell {
     let cell: SettingsTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SettingsTableViewCell
     
-    cell.settingNameLabel.text = SettingsTableViewRow(rawValue: indexPath.row)?.title()
-    switch indexPath.row {
-      case SettingsTableViewRow.DefaultTip.rawValue:
-        cell.darkThemeSwitch.hidden = true
-        cell.defaultTipSelector.addTarget(self, action: "tipChanged:", forControlEvents: UIControlEvents.ValueChanged)
-        cell.defaultTipSelector.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
-      case SettingsTableViewRow.DarkTheme.rawValue:
-        cell.defaultTipSelector.hidden = true
-        cell.darkThemeSwitch.on = defaults.boolForKey("darkTheme")
-        cell.darkThemeSwitch.addTarget(self, action: "themeChanged:", forControlEvents: UIControlEvents.ValueChanged)
-      case SettingsTableViewRow.ShowDogeInModal.rawValue:
-        cell.darkThemeSwitch.hidden = true
-        cell.defaultTipSelector.hidden = true
-      case SettingsTableViewRow.AnimateDoge.rawValue:
-        cell.darkThemeSwitch.hidden = true
-        cell.defaultTipSelector.hidden = true
-      default:
-        assert(true, "Tried to access row that doesn't exist")
-    }
+    let currentRow = SettingsTableViewRow(rawValue: indexPath.row)!
     
+    cell.settingNameLabel.text = currentRow.title()
+    cell.darkThemeSwitch.hidden = currentRow.shouldHideDarkThemeSwitch()
+    cell.defaultTipSelector.hidden = currentRow.shouldHideTipSelector()
+    
+    cell.darkThemeSwitch.on = defaults.boolForKey("darkTheme")
+    cell.darkThemeSwitch.addTarget(self, action: "themeChanged:", forControlEvents: UIControlEvents.ValueChanged)
+    
+    cell.defaultTipSelector.addTarget(self, action: "tipChanged:", forControlEvents: UIControlEvents.ValueChanged)
+    cell.defaultTipSelector.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
+
     return cell
   }
   

@@ -25,17 +25,21 @@ class AnimateDogeViewController: UIViewController {
     animationImage2.alpha = 0
     animationImage3.alpha = 0
     
-    UIView.animateWithDuration(3, animations: {
-      self.animationImage1.alpha = 0
-      self.animationImage2.alpha = 1
+    UIView.animateWithDuration(3,
+      animations: {
+        self.animationImage1.alpha = 0
+        self.animationImage2.alpha = 1
       },
       completion: {
         (value: Bool) in
-        UIView.animateWithDuration(3, animations: {
-          self.animationImage2.alpha = 0
-          self.animationImage3.alpha = 1
-        })
-    })
+        UIView.animateWithDuration(3,
+          animations: {
+            self.animationImage2.alpha = 0
+            self.animationImage3.alpha = 1
+          }
+        )
+      }
+    )
   }
   
   override func didReceiveMemoryWarning() {
