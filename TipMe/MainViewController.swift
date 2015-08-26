@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
  
   // MARK: - Storyboard Object
   
@@ -28,18 +28,7 @@ class ViewController: UIViewController {
   
   let tipPercentages = [0.18, 0.2, 0.22]
   let defaults = NSUserDefaults.standardUserDefaults()
-  
-  // MARK: - Helper
-  
-  func UIColorFromRGB(rgbValue: UInt) -> UIColor {
-    return UIColor(
-      red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-      green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-      blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-      alpha: CGFloat(1.0)
-    )
-  }
-  
+   
   // MARK: - Behavior
   
   @IBAction func onEditingChanged(sender: AnyObject) {
@@ -92,8 +81,15 @@ class ViewController: UIViewController {
     
     defaults.synchronize()
     
-    tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
+    if defaults.boolForKey("darkTheme"){
+      Helper.setDarkThemeColors()
+    } else {
+      Helper.setLightThemeColors()
+    }
+    
+    Helper.resetViews()
     billField.becomeFirstResponder()
+    tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
     dollarSignLabel.text = (NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String)
     
     // Listen for app background/foreground transitions
@@ -113,38 +109,8 @@ class ViewController: UIViewController {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     tipControl.selectedSegmentIndex = find(tipPercentages, defaults.doubleForKey("defaultTip"))!
-    
-    switch defaults.boolForKey("darkTheme"){
-      case true:
-        view.backgroundColor = UIColor.blackColor()
-        dollarSignLabel.textColor = UIColor.orangeColor()
-        billAmountLabel.textColor = UIColor.orangeColor()
-        tipNameLabel.textColor = UIColor.orangeColor()
-        totalNameLabel.textColor = UIColor.orangeColor()
-        borderView.backgroundColor = UIColor.orangeColor()
-        tipLabel.textColor = UIColor.orangeColor()
-        billField.textColor = UIColor.orangeColor()
-        totalLabel.textColor = UIColor.orangeColor()
-        tipControl.tintColor = UIColor.orangeColor()
-        billField.backgroundColor = UIColor.blackColor()
-        billField.tintColor = UIColor.orangeColor()
-        
-      case false:
-        view.backgroundColor = UIColor.whiteColor()
-        dollarSignLabel.textColor = UIColor.blackColor()
-        billAmountLabel.textColor = UIColor.blackColor()
-        tipNameLabel.textColor = UIColor.blackColor()
-        totalNameLabel.textColor = UIColor.blackColor()
-        borderView.backgroundColor = UIColor.blackColor()
-        tipLabel.textColor = UIColor.blackColor()
-        billField.textColor = UIColor.blackColor()
-        totalLabel.textColor = UIColor.blackColor()
-        tipControl.tintColor = UIColorFromRGB(0x007AFF)
-        billField.backgroundColor = UIColor.whiteColor()
-        billField.tintColor = UIColor.blackColor()
-      default:
-        assert(true, "This should never happen")
-    }
+    onEditingChanged(self)
+
   }
   
   override func didReceiveMemoryWarning() {

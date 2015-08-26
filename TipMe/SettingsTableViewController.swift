@@ -77,9 +77,15 @@ class SettingsTableViewController: UITableViewController {
   func themeChanged(sender: UISwitch!){
     if sender.on {
       defaults.setBool(true, forKey: "darkTheme")
+      Helper.setDarkThemeColors()
+      
     } else {
       defaults.setBool(false, forKey: "darkTheme")
+      Helper.setLightThemeColors()
     }
+    
+    Helper.resetViews()
+    
   }
   
   // MARK: - Lifecycle
