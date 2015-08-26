@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
  
-  // MARK: - Storyboard Object
+  // MARK: - Storyboard Objects
   
   @IBOutlet weak var dollarSignLabel: UILabel!
   @IBOutlet weak var billAmountLabel: UILabel!
@@ -24,10 +24,18 @@ class MainViewController: UIViewController {
   @IBOutlet weak var totalLabel: UILabel!
   @IBOutlet weak var tipControl: UISegmentedControl!
   
+  @IBOutlet weak var numberOfPeopleLabel: UILabel!
+  @IBOutlet weak var personOrPeopleLabel: UILabel!
+  @IBOutlet weak var peopleStepper: UIStepper!
+  
   // MARK: - Constants
   
   let tipPercentages = [0.18, 0.2, 0.22]
   let defaults = NSUserDefaults.standardUserDefaults()
+  
+  // MARK: - Private Variables
+  
+  private var billTotal = 0.0
    
   // MARK: - Behavior
   
@@ -37,9 +45,19 @@ class MainViewController: UIViewController {
     var billAmount = (billField.text as NSString).doubleValue
     var tip = billAmount * tipPercentage
     var total = billAmount + tip
+    billTotal = total
     
     tipLabel.text = NSNumberFormatter.localizedStringFromNumber(tip as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
     totalLabel.text = NSNumberFormatter.localizedStringFromNumber(total as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+  }
+  
+  @IBAction func onNumberOfPeopleChanged(sender: AnyObject) {
+    numberOfPeopleLabel.text = String(format: "%i", Int((sender as! UIStepper).value))
+    if peopleStepper.value > 1.0 {
+      personOrPeopleLabel.text = "People"
+    } else {
+      personOrPeopleLabel.text = "Person"
+    }
   }
   
   // MARK: - App Lifecycle
@@ -117,5 +135,21 @@ class MainViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  // MARK: - Navigation
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    if segue.identifier == "splitCheck" {
+      if let destinationViewController = (segue.destinationViewController as? SplitCheckTableViewController) {
+        destinationViewController.numberOfRows = Int(peopleStepper.value)
+        destinationViewController.totalBillAmount = billTotal
+      }
+      
+    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+  }
+
 }
 

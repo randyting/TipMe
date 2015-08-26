@@ -20,6 +20,8 @@
 		6FE27F851B8D787100A719DC /* BackgroundUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE27F841B8D787100A719DC /* BackgroundUIView.swift */; };
 		6FE27F871B8D790F00A719DC /* DividerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE27F861B8D790F00A719DC /* DividerUIView.swift */; };
 		6FE27F891B8D80FC00A719DC /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE27F881B8D80FC00A719DC /* Helper.swift */; };
+		6FE27F8E1B8D8C5000A719DC /* SplitCheckTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE27F8D1B8D8C5000A719DC /* SplitCheckTableViewController.swift */; };
+		6FE27F911B8D991100A719DC /* SplitCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE27F901B8D991100A719DC /* SplitCheckTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		6FE27F841B8D787100A719DC /* BackgroundUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundUIView.swift; sourceTree = "<group>"; };
 		6FE27F861B8D790F00A719DC /* DividerUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DividerUIView.swift; sourceTree = "<group>"; };
 		6FE27F881B8D80FC00A719DC /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		6FE27F8D1B8D8C5000A719DC /* SplitCheckTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitCheckTableViewController.swift; sourceTree = "<group>"; };
+		6FE27F901B8D991100A719DC /* SplitCheckTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitCheckTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 				6FE27F8B1B8D848800A719DC /* Main */,
 				6FE27F8C1B8D84AC00A719DC /* Helper */,
 				6FE27F8A1B8D846200A719DC /* Settings */,
+				6FE27F8F1B8D8C5500A719DC /* SplitCheck */,
 				25E8AA031B7FCD2F003A0BA3 /* Main.storyboard */,
 				25E8AA061B7FCD2F003A0BA3 /* Images.xcassets */,
 				25E8AA081B7FCD2F003A0BA3 /* LaunchScreen.xib */,
@@ -155,6 +160,15 @@
 				6FE27F881B8D80FC00A719DC /* Helper.swift */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		6FE27F8F1B8D8C5500A719DC /* SplitCheck */ = {
+			isa = PBXGroup;
+			children = (
+				6FE27F901B8D991100A719DC /* SplitCheckTableViewCell.swift */,
+				6FE27F8D1B8D8C5000A719DC /* SplitCheckTableViewController.swift */,
+			);
+			name = SplitCheck;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,10 +278,12 @@
 				25E8AA001B7FCD2F003A0BA3 /* AppDelegate.swift in Sources */,
 				250C88371B7FE44100904B2B /* SettingsTableViewCell.swift in Sources */,
 				250C88391B805BE600904B2B /* DogeViewController.swift in Sources */,
+				6FE27F911B8D991100A719DC /* SplitCheckTableViewCell.swift in Sources */,
 				6FE27F891B8D80FC00A719DC /* Helper.swift in Sources */,
 				250C88341B7FDB1800904B2B /* SettingsTableViewController.swift in Sources */,
 				6FE27F871B8D790F00A719DC /* DividerUIView.swift in Sources */,
 				6FE27F851B8D787100A719DC /* BackgroundUIView.swift in Sources */,
+				6FE27F8E1B8D8C5000A719DC /* SplitCheckTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
