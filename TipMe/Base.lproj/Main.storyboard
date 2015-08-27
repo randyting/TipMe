@@ -127,6 +127,7 @@
                         <outlet property="numberOfPeopleLabel" destination="mdg-s9-t76" id="KZR-Ib-mDq"/>
                         <outlet property="peopleStepper" destination="Dw1-eF-Sfs" id="lah-0N-CfD"/>
                         <outlet property="personOrPeopleLabel" destination="qMF-3E-73G" id="I6R-ki-pLR"/>
+                        <outlet property="splitCheckButton" destination="KVK-9J-ZuF" id="CsS-T1-Srf"/>
                         <outlet property="tipControl" destination="zGD-Tv-jLO" id="mZ5-j8-Ms4"/>
                         <outlet property="tipLabel" destination="2bB-h3-3iR" id="ZMT-pn-q5Z"/>
                         <outlet property="tipNameLabel" destination="DGy-xC-LNy" id="Ovi-Tg-tPH"/>

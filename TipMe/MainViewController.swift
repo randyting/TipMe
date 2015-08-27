@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
   @IBOutlet weak var numberOfPeopleLabel: UILabel!
   @IBOutlet weak var personOrPeopleLabel: UILabel!
   @IBOutlet weak var peopleStepper: UIStepper!
+  @IBOutlet weak var splitCheckButton: UIButton!
   
   // MARK: - Constants
   
@@ -82,8 +83,11 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "TipMe"
+    title = "TIPME"
     navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+    
+    peopleStepper.tintColor = Helper.colorFromHexString("#16a085")
+    splitCheckButton.setTitleColor(Helper.colorFromHexString("#16a085"), forState: UIControlState.Normal)
     
     if defaults.objectForKey("currentTip") == nil {
       defaults.setDouble(0.18, forKey: "currentTip")

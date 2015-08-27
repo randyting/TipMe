@@ -93,7 +93,7 @@ class SettingsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.title = "Settings"
+    self.title = "SETTINGS"
   }
   
   override func didReceiveMemoryWarning() {
