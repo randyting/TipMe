@@ -32,7 +32,9 @@ class SplitCheckTableViewController: UITableViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
-    var currentTotalBarButtonItem = UIBarButtonItem(title: NSNumberFormatter.localizedStringFromNumber(pricePerPerson, numberStyle: NSNumberFormatterStyle.CurrencyStyle),  style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    let dollarsPerPersonLabel = (NSLocale.currentLocale().objectForKey(NSLocaleCurrencySymbol) as! String) + "/Person: "
+    
+    var currentTotalBarButtonItem = UIBarButtonItem(title: dollarsPerPersonLabel + NSNumberFormatter.localizedStringFromNumber(pricePerPerson, numberStyle: NSNumberFormatterStyle.CurrencyStyle),  style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     
     navigationItem.rightBarButtonItem = currentTotalBarButtonItem
   }
