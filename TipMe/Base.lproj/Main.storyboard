@@ -76,26 +76,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Dw1-eF-Sfs">
-                                <rect key="frame" x="16" y="257" width="94" height="29"/>
-                                <color key="tintColor" red="0.26592741510000001" green="0.2259138507" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="onNumberOfPeopleChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="udT-di-Z3U"/>
-                                </connections>
-                            </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="People" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMF-3E-73G">
-                                <rect key="frame" x="170" y="267" width="54" height="21"/>
+                                <rect key="frame" x="78" y="265" width="54" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdg-s9-t76">
-                                <rect key="frame" x="60" y="252" width="102" height="40"/>
+                                <rect key="frame" x="16" y="250" width="54" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="KVK-9J-ZuF">
-                                <rect key="frame" x="232" y="262" width="47" height="30"/>
+                                <rect key="frame" x="237" y="260" width="47" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                                 <state key="normal" title="SPLIT">
                                     <color key="titleColor" red="0.26592741510067208" green="0.22591385073833758" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -105,6 +98,13 @@
                                     <segue destination="hcH-Gq-Kcd" kind="show" identifier="splitCheck" id="RXj-n4-T9u"/>
                                 </connections>
                             </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Dw1-eF-Sfs">
+                                <rect key="frame" x="135" y="257" width="94" height="29"/>
+                                <color key="tintColor" red="0.26592741510000001" green="0.2259138507" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="onNumberOfPeopleChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="udT-di-Z3U"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -203,6 +203,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="BrW-cr-rju" customClass="SplitCheckTableViewCell" customModule="TipMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -241,11 +242,17 @@
                         <connections>
                             <outlet property="dataSource" destination="hcH-Gq-Kcd" id="sJv-u8-eTb"/>
                             <outlet property="delegate" destination="hcH-Gq-Kcd" id="Yy1-Sa-GeC"/>
+                            <outletCollection property="gestureRecognizers" destination="WQ1-aM-uNa" appends="YES" id="gyp-BI-Wkh"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="fJV-l0-eRR"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QnM-pn-EWu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="WQ1-aM-uNa">
+                    <connections>
+                        <action selector="onEditingFinished:" destination="hcH-Gq-Kcd" id="E2g-Jk-mE2"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3159" y="1323"/>
         </scene>

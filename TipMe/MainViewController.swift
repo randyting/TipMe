@@ -47,8 +47,8 @@ class MainViewController: UIViewController {
     var total = billAmount + tip
     billTotal = total
     
-    tipLabel.text = NSNumberFormatter.localizedStringFromNumber(tip as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
-    totalLabel.text = NSNumberFormatter.localizedStringFromNumber(total as NSNumber, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+    tipLabel.text = NSNumberFormatter.localizedStringFromNumber(tip, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+    totalLabel.text = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
   }
   
   @IBAction func onNumberOfPeopleChanged(sender: AnyObject) {

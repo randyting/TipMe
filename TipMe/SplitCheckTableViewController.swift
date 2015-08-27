@@ -24,10 +24,6 @@ class SplitCheckTableViewController: UITableViewController {
     title = "Split Bill"
     
     pricePerPerson = totalBillAmount/(Double(numberOfRows))
-  
-    var currentTotalBarButtonItem = UIBarButtonItem(title: String(format: "$/Person: %.2f", pricePerPerson),  style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-    
-    navigationItem.rightBarButtonItem = currentTotalBarButtonItem
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
@@ -39,6 +35,12 @@ class SplitCheckTableViewController: UITableViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    var currentTotalBarButtonItem = UIBarButtonItem(title: NSNumberFormatter.localizedStringFromNumber(pricePerPerson, numberStyle: NSNumberFormatterStyle.CurrencyStyle),  style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    
+    navigationItem.rightBarButtonItem = currentTotalBarButtonItem
   }
   
   // MARK: - Table view data source
@@ -65,6 +67,8 @@ class SplitCheckTableViewController: UITableViewController {
     return cell
   }
   
+  // MARK: - Behavior
+  
   func onAmountEntered(sender: UITextField) {
       let defaults = NSUserDefaults.standardUserDefaults()
     
@@ -78,6 +82,11 @@ class SplitCheckTableViewController: UITableViewController {
       }
     }
   }
+  
+  @IBAction func onEditingFinished(sender: AnyObject) {
+    self.view.endEditing(true)
+  }
+  
   
   /*
   // Override to support conditional editing of the table view.
