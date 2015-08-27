@@ -20,11 +20,15 @@ Notes:
 
 App only works in portrait mode. It's storyboard is laid out only for iPhone 5.  Other devices may have some alignment/visibility problems.
 
-Walkthrough of all user stories:
+Walkthrough of required user stories:
 
 ![Video Walkthrough of Required User Stories](150827_TipMe_Demo_Required.gif)
 
+Walkthrough of optional user stories:
+
 ![Video Walkthrough of Required User Stories](150827_TipMe_Demo_Optional.gif)
+
+Walkthrough of additional user stories:
 
 ![Video Walkthrough of Required User Stories](150827_TipMe_Demo_Additional.gif)
 
